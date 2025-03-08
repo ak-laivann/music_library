@@ -77,24 +77,18 @@ export function getCollectionDetails(
             name
           ),
         ]
-      : (() => {
-          const durations = distributeValue(
-            durationInSeconds,
-            songCount,
-            120,
-            180
-          );
-          const sizes = distributeValue(
-            sizeInBytes,
-            songCount,
-            1345678,
-            3145728
-          );
-
-          return Array.from({ length: songCount }, (_, i) =>
-            getSong(type, artist, durations[i], sizes[i], releasedOn, " ")
-          );
-        })();
+      : Array(songCount)
+          .fill(null)
+          .map((_) => {
+            return getSong(
+              type,
+              artist,
+              durationInSeconds / songCount,
+              sizeInBytes / songCount,
+              releasedOn,
+              " "
+            );
+          });
 
   return {
     id,
@@ -115,31 +109,4 @@ export function createCollections() {
   );
 
   return collections;
-}
-
-//generated using chatgpt - prompt - the props value should be redistributed in the songs
-function distributeValue(total, count, min, max) {
-  let remaining = total;
-  const values = [];
-
-  for (let i = 0; i < count - 1; i++) {
-    // Ensure min and max constraints are respected
-    const maxAllowed = Math.min(max, remaining - (count - i - 1) * min);
-    const minAllowed = Math.max(min, Math.floor(remaining / (count - i)));
-
-    // If minAllowed > maxAllowed, force equal distribution
-    if (minAllowed > maxAllowed) {
-      const equalSplit = Math.floor(remaining / (count - i));
-      values.push(equalSplit);
-      remaining -= equalSplit;
-      continue;
-    }
-
-    const value = faker.number.int({ min: minAllowed, max: maxAllowed });
-    values.push(value);
-    remaining -= value;
-  }
-
-  values.push(remaining);
-  return values;
 }

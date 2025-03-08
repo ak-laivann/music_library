@@ -6,7 +6,7 @@ export const RootRouter = () => {
     <Routes>
       <Route index element={<Navigate to={"/collections"} />} />
       <Route path="/collections" element={<MusicCollections />} />
-      <Route path="/collections/id" element={<MusicCollectionDetails />} />
+      <Route path="/collections/:id" element={<MusicCollectionDetails />} />
     </Routes>
   );
 };

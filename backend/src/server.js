@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
+import cors from "cors";
 import { createCollections, getCollectionDetails } from "./datatypes/index.js";
 
 dotenv.config();
@@ -43,6 +44,10 @@ function addToCache(key, data) {
 this would persist even between requests so that filter function would be easier */
 const collections = createCollections();
 
+// in development - my frontend would be in port 3000 and backend would be in port 5000 -
+// since i can't see the live changes of the react app if served in same port
+// so using cross origin resource sharing
+app.use(cors());
 app.use(express.json()); // lets me accept the json in req.body
 
 // can replace the below two functions with routes - but this much is needed as of now

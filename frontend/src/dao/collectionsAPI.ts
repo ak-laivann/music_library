@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../config";
 
 export const useCollections = (search: string, type: string[]) => {
-  const delay = () => new Promise((resolve) => setTimeout(resolve, 3000)); // added only to simulate the async environment
+  const delay = () => new Promise((resolve) => setTimeout(resolve, 1500)); // added only to simulate the async environment
   return useQuery({
     queryKey: ["collections", search, type],
     queryFn: async () => {
@@ -21,7 +21,7 @@ export const useCollections = (search: string, type: string[]) => {
 };
 
 export const useCollectionDetails = (collectionId: string) => {
-  const delay = () => new Promise((resolve) => setTimeout(resolve, 3000)); // added only to simulate the async environment
+  const delay = () => new Promise((resolve) => setTimeout(resolve, 1500)); // added only to simulate the async environment
   return useQuery({
     queryKey: ["collections", collectionId],
     queryFn: async () => {

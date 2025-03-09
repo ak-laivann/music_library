@@ -12,6 +12,7 @@ export const AsyncUIWrapper = ({
 }) => {
   return !!failureReason ? (
     <div
+      data-testid="error_component"
       style={{
         display: "flex",
         height: "50vh",
@@ -23,6 +24,7 @@ export const AsyncUIWrapper = ({
     </div>
   ) : isLoading ? (
     <div
+      data-testid="loading"
       style={{
         display: "flex",
         height: "50vh",

@@ -11,9 +11,27 @@ export const AsyncUIWrapper = ({
   failureReason?: Error | null;
 }) => {
   return !!failureReason ? (
-    <Error message={failureReason.message} />
+    <div
+      style={{
+        display: "flex",
+        height: "50vh",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Error message={failureReason.message} />
+    </div>
   ) : isLoading ? (
-    <Loading />
+    <div
+      style={{
+        display: "flex",
+        height: "50vh",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Loading />
+    </div>
   ) : (
     children
   );

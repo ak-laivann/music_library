@@ -45,8 +45,18 @@ export const FilterDropdown = (props: {
       trigger={["click"]}
       dropdownRender={() => menu}
     >
-      <Button style={{ background: "#E1E4E9" }} size="large">
-        Type <DownOutlined />
+      <Button
+        style={{
+          background: selectedFilters.length > 0 ? "#EBF5FF" : "#E1E4E9",
+          color: selectedFilters.length > 0 ? "#084782" : "#000",
+          border: selectedFilters.length > 0 ? "1px solid #084782" : undefined,
+          borderRadius: "8px",
+        }}
+        size="large"
+      >
+        Type{" "}
+        {selectedFilters.length > 0 && "( " + selectedFilters.length + " )"}{" "}
+        <DownOutlined />
       </Button>
     </Dropdown>
   );

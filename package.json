@@ -2,7 +2,7 @@
   "name": "musiclibrary",
   "version": "1.0.0",
   "scripts": {
-    "install:all": "cd backend && npm install",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
     "devbackend": "npm run dev --prefix backend",
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
     "build": "cd backend && npm run build && cd ../frontend && npm run build",

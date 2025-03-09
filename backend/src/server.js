@@ -52,7 +52,27 @@ app.use(express.json()); // lets me accept the json in req.body
 
 // can replace the below two functions with routes - but this much is needed as of now
 app.get("/api/collections", (req, res) => {
-  res.json(collections);
+  let { search, type } = req.query;
+
+  let filteredCollections = collections;
+
+  if (search) {
+    const searchLower = search.toLowerCase();
+    filteredCollections = filteredCollections.filter(
+      (c) =>
+        c.name.toLowerCase().includes(searchLower) ||
+        c.artist.toLowerCase().includes(searchLower)
+    );
+  }
+
+  if (type) {
+    const typeArray = type.split(",");
+    filteredCollections = filteredCollections.filter((c) =>
+      typeArray.includes(c.type)
+    );
+  }
+
+  res.json(filteredCollections);
 });
 
 app.get("/api/collections/:collectionId", checkCache, (req, res) => {
@@ -79,7 +99,6 @@ app.get("/api/collections/:collectionId", checkCache, (req, res) => {
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/dist"))); // lets me serve the frontend in the same port as backend
-  // although the frontend is yet to be built.
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
   });
